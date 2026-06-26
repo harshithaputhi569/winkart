@@ -1,0 +1,134 @@
+# Winkart Backend API Walkthrough
+
+We have successfully built and verified the complete, production-ready Django backend API for **WINKART** integrated with MongoDB. The system satisfies every requirement from the specification doc and matches the in-store "check-before-buy" workflow.
+
+---
+
+## 1. System Architecture
+
+The project has been structured cleanly into modular sub-applications under the [winkart_backend](file:///d:/PythonPrograms/Winkart/winkart_backend) directory:
+
+- **MongoDB Config ([database.py](file:///d:/PythonPrograms/Winkart/winkart_backend/winkart_backend/database.py))**: Connection client to the local MongoDB server (`mongodb://localhost:27017`) and initialization code to configure optimal indexes (unique email/phone, geospatial `2dsphere` indexes on shop locations, and text index on product catalogs).
+- **Authentication App ([authentication/](file:///d:/PythonPrograms/Winkart/winkart_backend/authentication))**: Custom stateless JWT authentication (`pyjwt` and DRF custom backend) for users stored in MongoDB, handling Customer and Seller profiles, shop settings, business hours, and file uploads.
+- **Core Catalog App ([core/](file:///d:/PythonPrograms/Winkart/winkart_backend/core))**: Management of Level 1 and Level 2 Categories, Geospatial shop location search (`$near` queries), Product details and attributes, and scheduled active banner/video promotions.
+- **Operations App ([operations/](file:///d:/PythonPrograms/Winkart/winkart_backend/operations))**: Customer shopping carts, Checkout to generate digital **Bills/Invoices**, dynamic invoice PDF downloads using `reportlab`, and bulk Excel exports/imports using `pandas` and `openpyxl`.
+- **Marketing App ([marketing/](file:///d:/PythonPrograms/Winkart/winkart_backend/marketing))**: Mappings and recommendations for Upselling (higher-end items) and Cross-selling (complementary items) configurations.
+
+---
+
+## 2. API Endpoints
+
+### 🔐 Authentication
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/auth/register/customer/` | Register customer |
+| `POST` | `/api/auth/register/seller/` | Register seller (with shop details) |
+| `POST` | `/api/auth/login/` | Log in and get JWT tokens |
+| `GET` | `/api/auth/profile/` | Fetch/update profiles |
+| `PUT` | `/api/auth/seller/settings/` | Update shop address, location coords, and business hours |
+| `POST` | `/api/auth/upload/` | Utility endpoint to upload profile pictures or banner media |
+
+### 🛍️ Shops, Categories & Products
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/core/shops/` | List shops, support geospatial search (`?latitude=X&longitude=Y`) |
+| `GET` | `/api/core/categories/` | List category trees with dynamic product counts |
+| `GET` | `/api/core/products/` | Filter products by category, shop, and text search |
+| `POST` | `/api/core/products/` | Create a product listing (Seller only) |
+| `GET` | `/api/core/banners/` | Retrieve active banners/videos matching scheduled date/time |
+
+### 🛒 Cart & Bills Management (In-Store Flow)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET`/`POST`/`DELETE` | `/api/operations/cart/` | Manage customer cart items (supports guest mode via `guest_cart_id`) |
+| `POST` | `/api/operations/checkout/` | Checkout and generate a Bill with status `Billed` |
+| `GET` | `/api/operations/bills/customer/` | Customer bill list (purchase history) |
+| `GET` | `/api/operations/bills/seller/` | Seller bills dashboard |
+| `PUT` | `/api/operations/bills/<bill_id>/` | Update bill status (`Billed` -> `Paid` or `Cancelled`) |
+| `GET` | `/api/operations/bills/<bill_id>/download/` | Download a clean, formatted PDF invoice |
+
+### 📊 Excel Bulk Operations & Logs
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/operations/products/import/` | Upload excel sheet (`.xlsx`) to bulk import products |
+| `GET` | `/api/operations/products/export/` | Export bills or products database to Excel/CSV |
+| `GET` | `/api/operations/products/import/history/` | View Excel import log history and errors |
+
+### 🎯 Recommendations (Upsell & Cross-sell)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/marketing/recommendations/configure/` | Link source product to other items (Seller only) |
+| `GET` | `/api/marketing/recommendations/<product_id>/` | Fetch linked cross-sell and upsell products |
+
+---
+
+## 3. Verification Results
+
+We verified all functions using an automated integration test script [verify_backend.py](file:///d:/PythonPrograms/Winkart/verify_backend.py). 
+
+```bash
+venv\Scripts\python verify_backend.py
+```
+
+### Test Execution Log:
+```text
+Database cleaned up successfully.
+
+--- Testing Registration & Authentication ---
+Customer Register: 201 Customer registered successfully.
+Seller Register: 201 Seller registered successfully.
+Seller Login: 200
+Customer Login: 200
+
+--- Testing Profile & Seller Configuration ---
+Get Profile: 200 Test Customer
+Update Seller Settings: 200 Seller settings updated successfully.
+
+--- Testing Geospatial Shop Listing ---
+Geospatial Shop Search (Found): 200 1
+
+--- Testing Categories & Catalog Management ---
+Create L1 Category: 201 Electronics
+Create L2 Category: 201 Smartphones
+List Categories count: 200 2
+Create Product 1: 201 Phone Max Pro 14
+Create Product 2: 201 Phone Charger Fast 30W
+Get Shop Details with categories: 200 1
+
+--- Testing Marketing & Recommendation Configurations ---
+Configure Cross-sell: 200 Linked cross_sell products updated successfully.
+Fetch Recommendations count: 200 1
+
+--- Testing Cart & Billing Flow ---
+Update Customer Cart: 200 Cart updated successfully.
+Get Cart: 200 Total items: 3
+Checkout (Generate Bill): 201 Bill Number: WIN-20260623-6626
+Customer Bills History: 200 Bills count: 1
+Seller Bills Dashboard: 200 Bills count: 1
+Seller Updates Bill Status to Paid: 200 Bill status updated to Paid successfully.
+Download Invoice PDF: 200 Content length: 2864
+
+--- Testing Excel Exports ---
+Export Bills Excel: 200 Content length: 5052
+
+--- Testing Excel Bulk Imports ---
+Bulk Excel Import Products: 200 Success count: 1
+Seller Import History Logs: 200 Logs count: 1
+Database cleaned up successfully.
+
+ALL BACKEND API TESTS COMPLETED SUCCESSFULLY!
+```
+
+---
+
+## 4. How to Start and Run the Server
+
+To launch the Django development server on your machine, run:
+```bash
+# Navigate to project directory
+cd winkart_backend
+
+# Run Django server
+..\venv\Scripts\python manage.py runserver 127.0.0.1:8000
+```
+The MongoDB client connects automatically to the local MongoDB service running on port `27017`.

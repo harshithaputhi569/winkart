@@ -1,0 +1,31 @@
+# Seller Panel Walkthrough
+
+This walkthrough outlines the implementation details for the Winkart Seller Panel. The new routes are isolated inside an independent folder structure utilizing Expo Router's route groups (`(seller)`), maintaining clean routing and clear separations.
+
+## Changes Completed
+
+### 1. Routing & Infrastructure
+*   **Modified** [app/_layout.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/_layout.tsx): Registered the root `(seller)` routing group.
+*   **Modified** [app/(tabs)/profile.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/profile.tsx): Added navigation handlers using the `useRouter` hook so "Register as Seller" routes to the seller login page.
+*   **Created** [app/(seller)/_layout.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/_layout.tsx): Set up a stack navigator container with pages for login, core tabs, and presentation modals.
+*   **Created** [app/(seller)/(tabs)/_layout.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/_layout.tsx): Set up the bottom tabs layout structure containing Dashboard, Products, Orders, Banners, and Profile.
+
+### 2. Seller Screens
+*   **Created** [app/(seller)/login.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/login.tsx): Card-based layout with validation forms, password eye toggle, and redirection to the Dashboard.
+*   **Created** [app/(seller)/(tabs)/index.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/index.tsx): Dashboard containing a 2x2 grid of metric cards, recent order logs, interactive quick tools links, and a custom bar chart.
+*   **Created** [app/(seller)/(tabs)/products.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/products.tsx): Search filters, tab categories (Active, Inactive, Out of stock), product stock counters, active toggle status switches, and an overlay Modal to publish or edit items.
+*   **Created** [app/(seller)/(tabs)/orders.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/orders.tsx): Order invoice logs, search, status badge mapping, and a detail sheet Modal showing customer addresses, items purchased, and status modification pickers.
+*   **Created** [app/(seller)/(tabs)/banners.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/banners.tsx): Banner campaigns management interface with media preview container slots, scheduling statuses, and creation dialog forms.
+*   **Created** [app/(seller)/(tabs)/profile.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/(tabs)/profile.tsx): Store metadata profile fields, interactive business hours schedules toggles, account action controls, a styled vector map location box, and logout redirecting back to the user app.
+
+### 3. Utility Pages
+*   **Created** [app/(seller)/categories.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/categories.tsx): Tree-view hierarchy of categories and subcategories, connector lines, counting badges, and addition modals.
+*   **Created** [app/(seller)/upsell.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/upsell.tsx): Base product source lookup search autocomplete fields and linked recommendation selection cards.
+*   **Created** [app/(seller)/import-export.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(seller)/import-export.tsx): Inventory spreadsheet file upload boxes, database headers column mapping tables, export configurations, and log transaction listings.
+
+## Testing & Verification
+1. Opened the main Customer app, tapped **Profile**, and clicked **Register as Seller**. It navigated to `/seller/login` successfully.
+2. Verified the email/password form controls and clicked **LOGIN**, which redirected to the **Seller Dashboard**.
+3. Navigated through the 5 bottom tabs and confirmed that all layouts matched the screen mockups.
+4. Tested the modals (adding products, updating order statuses, setting categories) and confirmed state is preserved properly.
+5. Clicked **Log Out** in the Profile Settings, which safely redirected back to the main customer app profile.

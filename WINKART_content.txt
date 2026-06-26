@@ -1,0 +1,147 @@
+WINKART - Software Requirements & Technology Recommendation
+Project Type: Mobile Commerce Application with seller Panel
+1. Project Overview
+WINKART is a mobile-based shopping platform where users can browse products, search and filter items, receive product recommendations, view promotional banners/videos, add products to cart, complete payments, and download invoices. sellers manage categories, products, banners, product structures, imports/exports, and recommendations.
+2. User Roles
+• Customer/User• seller
+3. User Features
+Login/Logout (optional) 
+Home Page with banners and videos
+Product Search
+Category-based filtering
+Product recommendations
+Upselling and Cross-selling suggestions
+Product details page
+Add to Cart
+Invoice Download
+Settings and Profile Management
+4. seller Features
+Multi-level category management
+Product structure management
+Product upload and attribute mapping
+Excel import/export
+Banner and video management
+Banner scheduling
+Upselling/Cross-selling configuration
+Dashboard and reporting
+5. Recommended Technology Stack
+Frontend Mobile App: Flutter
+Admin Panel: React.js + Material UI
+Backend API: python Django.
+Database: mongo db.
+Cache: Redis
+Authentication: JWT + Refresh Tokens
+Search: Elasticsearch/OpenSearch
+6. Database Modules
+Users
+Categories
+Products
+Product Attributes
+Cart
+Invoices
+Banners
+Recommendations
+7. Development Phases
+Requirement Gathering
+Database Design
+API Development
+Admin Panel Development
+Mobile App Development
+Payment Integration
+Testing & QA
+Deployment’User screens:
+Home screen.
+single category screen.
+single shop screen.
+single product screen.
+Cart screen.
+Invoice page.
+Profile page.
+
+User screen deigns:Home screen components (screen 1): ref blink it home screen.1) location tacking pop up window.2) search bar for shop.3) categories selection card.4) welcome banner.5) shop suggestion card.6) trending product recommendation.7) shop banner and video showing card. 8) Navigation bar. (home, categories, previous bills, cart, profile) ref flip kart navigation.location tacking pop window pop up : ref blink it pop up screen.1) select location by map2) search bar to enter manuallySingle shop screen (screen 2) : ref product search screen of Flipkart1) search bar for product.
+2) image or video banners uploaded by the seller 
+3) recommended products cards from shop.4) level 2 categories.searched product products screen (screen 3): 1) filter and sorting options.2) product cards.
+single product screen (screen 4): ref blink it single product screen1) product images 
+2) product details and price details 3) any offer details4) if any upselling products those details.5) if any cross-selling products those details6) remaining related products and shops and banners.
+Cart screen: ref blink it cart page 1) list of products added to the cart .2) shop details3) next step option
+
+Previous shopping’s screen :
+if registered and sign in then show previous invoice list.
+Shop more
+
+single invoice page :
+Products details
+download invoice option .
+profile page :
+if registered and sign in then show profile details image and number.
+Remaining as it is from blink it other information in profile page.
+
+Seller screens:
+- Login screen.
+- Dashboard screen.
+- Category management screen.
+- Product management screen.
+- Banner and video management screen.
+- bills management screen.
+- Upselling/Cross-selling configuration screen.
+- Import/Export screen.
+- Profile/Shop settings screen.
+
+Seller screen designs:
+Login screen components (screen 1): ref standard seller panel login screens.
+1) WINKART logo and seller panel branding.
+2) email / mobile number input field.
+3) password input field with show/hide toggle.
+4) forgot password link.
+5) login button.
+6) register as new seller link.
+
+Dashboard screen components (screen 2): ref shopify seller dashboard / Amazon seller central dashboard.
+1) top header bar with shop name, notification bell icon, and seller profile avatar.
+2) summary cards row - total orders today, total revenue today, pending orders, total products listed.
+3) recent orders list with order id, customer name, amount, and status badge.
+4) top selling products card with product image, name, and units sold.
+5) revenue chart (weekly/monthly toggle) showing sales trend graph.
+6) bottom navigation bar. (dashboard, products, orders, banners, profile) ref seller panel nav.
+
+Category management screen (screen 3): ref Shopify product categories admin screen.
+1) screen header with title “Categories” and add new category button (+).
+2) search bar to filter categories by name.
+3) multi-level category tree list - level 1 categories with expand/collapse arrow, nested level 2 sub-categories below each.
+4) each category row shows: category icon/thumbnail, category name, product count badge, edit icon, delete icon.
+5) add/edit category bottom sheet popup - category name field, parent category dropdown, category image upload, save button.
+
+Product management screen (screen 4): ref Amazon seller central manage inventory screen.
+1) screen header with title “Products” and add new product button (+).
+2) search bar to search products by name or SKU.
+3) filter tabs - all, active, inactive, out of stock.
+4) product list cards - product thumbnail, product name, category, price, stock count, active/inactive toggle, edit icon.
+5) add/edit product screen - product name, description, category selection (level 1 and level 2 dropdown), price, discount price, stock quantity, product images upload (multiple), product attribute mapping fields, save and publish button.
+
+Banner and video management screen (screen 5): ref Shopify marketing banner management screen.
+1) screen header with title “Banners & Videos” and add new banner button (+).
+2) toggle tabs - image banners and video banners.
+3) banner card list - banner preview thumbnail, title, scheduled date range, active/expired status badge, edit and delete icons.
+4) add/edit banner bottom sheet - upload image or video file, banner title, start date picker, end date picker (for scheduling), target link or product selection, save button.
+5) banner preview option to see how it looks on the user app before publishing.
+
+Upselling/Cross-selling configuration screen (screen 7): ref Amazon seller backend product linking screen.
+1) screen header with title “Upsell & Cross-sell”.
+2) toggle tabs - upsell products and cross-sell products.
+3) source product search - search and select the base product for which upsell/cross-sell items are to be configured.
+4) linked products list - shows currently linked upsell or cross-sell products with remove option.
+5) add products button to search and add new linked products from the product catalog.
+6) save configuration button.
+
+Import/Export screen (screen 8): ref standard bulk import/export admin screens.
+1) screen header with title “Import & Export”.
+2) import section - upload excel file (.xlsx) button, download sample template link, column mapping preview table, import now button.
+3) export section - export type dropdown (products, orders, invoices), date range picker, export format selection (excel/csv), export now button.
+4) import history log - list of previous imports with file name, import date, total records, success count, failed count, and download error report option.
+
+Profile/Shop settings screen (screen 9): ref Shopify store settings screen.
+1) seller profile section - shop logo image, shop name, seller name, registered mobile number, registered email id.
+2) shop details section - shop description, shop address, shop location on map (pin location).
+3) business hours section - day-wise toggle and open/close time picker for each day.
+4) account settings section - change password option, notification preferences toggle, logout button.
+5) save changes button at the bottom.

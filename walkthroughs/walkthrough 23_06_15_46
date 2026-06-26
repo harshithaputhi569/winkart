@@ -1,0 +1,80 @@
+# Winkart Mobile App — Build Walkthrough
+
+## ✅ What Was Built
+
+### User App — All 10 Screens Complete
+
+| Screen | File | Status |
+|---|---|---|
+| Home Screen | [index.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/index.tsx) | ✅ Done |
+| Location Popup (Modal) | Built into Home Screen | ✅ Done |
+| Location Selector | [location.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/location.tsx) | ✅ Done |
+| Categories | [categories.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/categories.tsx) | ✅ Done |
+| Bill History | [bills.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/bills.tsx) | ✅ Done |
+| Cart | [cart.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/cart.tsx) | ✅ Done |
+| Profile | [profile.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/(tabs)/profile.tsx) | ✅ Done |
+| Single Shop | [shop/[id].tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/shop/%5Bid%5D.tsx) | ✅ Done |
+| Search Results | [search.tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/search.tsx) | ✅ Done |
+| Single Product | [product/[id].tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/product/%5Bid%5D.tsx) | ✅ Done |
+| Invoice Detail | [bill/[id].tsx](file:///d:/PythonPrograms/Winkart/WinkartApp/app/bill/%5Bid%5D.tsx) | ✅ Done |
+
+### Seller Panel — Screens Designed ✅
+See [seller_screen_designs.md](file:///C:/Users/Bhargava/.gemini/antigravity-ide/brain/965e27e2-a938-4da2-8723-586e3386fac3/seller_screen_designs.md) for wireframes of all 9 seller screens.
+
+---
+
+## 🏗 Project Structure
+
+```
+WinkartApp/
+├── app/
+│   ├── _layout.tsx          ← Root + fonts + safe area
+│   ├── location.tsx         ← Location selector screen
+│   ├── search.tsx           ← Search results (3-col grid)
+│   ├── (tabs)/
+│   │   ├── _layout.tsx      ← Bottom tab bar (5 tabs)
+│   │   ├── index.tsx        ← Home screen
+│   │   ├── categories.tsx   ← Expandable categories
+│   │   ├── bills.tsx        ← Bill history list
+│   │   ├── cart.tsx         ← Cart with qty controls
+│   │   └── profile.tsx      ← Profile + settings menu
+│   ├── shop/[id].tsx        ← Single shop screen
+│   ├── product/[id].tsx     ← Single product screen
+│   └── bill/[id].tsx        ← Invoice detail screen
+└── constants/Colors.ts      ← Design tokens
+```
+
+---
+
+## 🎨 Design System Applied
+
+- **Primary**: `#3D5AFE` — headers, buttons, accents
+- **Banner BG**: `#4A27D9` — hero banner gradient
+- **Font**: Inter (Regular/Medium/SemiBold/Bold)
+- **Icons**: Ionicons + MaterialCommunityIcons
+
+---
+
+## 🚀 How to Run
+
+```bash
+cd d:\PythonPrograms\Winkart\WinkartApp
+
+# Run on Android device / emulator
+npm run android
+
+# Run on iOS (macOS only)
+npm run ios
+
+# Scan QR with Expo Go app
+npm start
+```
+
+---
+
+## 📋 Seller Screens — Next Step
+
+The 9 seller screens are designed (wireframes ready). Next task:
+1. Build Seller Login → role-based routing
+2. Build Seller Dashboard, Products, Orders, Banners, Profile
+3. Connect both roles via a login selector
