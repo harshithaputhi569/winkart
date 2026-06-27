@@ -5,3 +5,4 @@ class OperationsConfig(AppConfig):
     name = 'operations'
 
 #enterd by Bhargava
+#enterd by Harshitha
